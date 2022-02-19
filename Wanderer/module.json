@@ -1,0 +1,12 @@
+{
+    "id": "{3E6130E7-7893-76C7-7DE3-6E6FEECA96EF}",
+    "name": "RenogyWanderer",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": ["{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}"],
+    "childRequirements": [],
+    "implemented": ["{018EF6B5-AB94-40C6-AA53-46943E824ACF}"],
+    "prefix": "RenogyWanderer",
+    "url": "https://github.com/Joey-1970/Renogy"
+}
