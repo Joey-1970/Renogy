@@ -12,7 +12,7 @@
             	parent::Create();
 		$this->RegisterMessage(0, IPS_KERNELSTARTED);
 		
-		$this->RequireParent('{6DC3D946-0D31-450F-A8C6-C42DB8D7D4F1}');
+		$this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
 		
             	$this->RegisterPropertyBoolean("Open", false);
 		
