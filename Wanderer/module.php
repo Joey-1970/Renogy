@@ -107,22 +107,10 @@
 			$StatusVariables = array();
 			$StatusVariables = array(
 					10 => array("SystemVoltageCurrent", 1, 0), 
-					/*
-					35852 => array("StatusCommand_1", 1, 0),
-    					35862 => array("ResetAlarmrelais", 1, 0), 
-					35887 => array("StatusAlarmrelais", 1, 0), 
-    					35888 => array("StatusCommand_2", 1, 0), 
-					35901 => array("Schornsteinfegerfunktion", 1, 0),
-    					35903 => array("Brennerleistung", 1, 0),
-					35904 => array("Handbetrieb", 1, 0),
-					35905 => array("Reglerstoppfunktion", 1, 0),
-					35906 => array("ReglerstoppSollwert", 1, 0),
-					37981 => array("Wasserdruck", 10, 0),
-					37982 => array("StatusCommand_3", 1, 0),
-					*/
+					
 					);
 			
-			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
+			$this->SetValue("LastUpdate", time() );
 		
 			foreach ($StatusVariables as $Key => $Values) {
 				$Function = 3;
@@ -147,9 +135,6 @@
 						$this->DataEvaluation($Address, $Ident, $Value);
 						
 						$this->SendDebug("GetData", $Ident.": ".$Value, 0);
-						If ($this->GetValue($Name) <> $Value) {
-							$this->SetValue($Name, $Value);
-						}
 					}
 				}
 			}
@@ -162,8 +147,10 @@
 		switch($Address) {
 			case "10":
 				// Sytem Spannung (high 4Bit) und Strom (low 4Bit)
-				
-				
+				$Voltage = $Value >> 4;
+				$this->SetValueWhenChanged("SystemVoltage", $Voltage);
+				$Current = $Value & 15;
+				$this->SetValueWhenChanged("SystemCurrent", $Current);
 				break;
 			
 	      		
