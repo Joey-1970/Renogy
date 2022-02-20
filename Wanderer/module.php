@@ -138,7 +138,7 @@
 			$Response = false;
 			$StatusVariables = array();
 			$StatusVariables = array(
-					10 => array("SystemVoltageCurrent", 1, 0) 
+					10 => array("SystemVoltageCurrent") 
 					
 					);
 			
@@ -149,20 +149,11 @@
 				$Address = $Key;
 				$Quantity = 1;
 				$Ident = $Values[0];
-				$Devisor = floatval($Values[1]);
-				$Signed = intval($Values[2]);
 				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
 				$Result = (unpack("n*", substr($Result,2)));
 				If (is_array($Result)) {
 					If (count($Result) == 1) {
 						$Response = $Result[1];
-						
-						If ($Signed == 0) {
-							$Value = ($Response/$Devisor);
-						}
-						else {
-							$Value = $this->bin16dec($Response/$Devisor);
-						}
 						
 						$this->DataEvaluation($Address, $Ident, $Value);
 						
@@ -180,13 +171,13 @@
 			$Response = false;
 			$StatusVariables = array();
 			$StatusVariables = array(
-					256 => array("BatteryCapacity", 1, 0), 
-					257 => array("BatteryVoltage", 1, 0), 
-					258 => array("BatteryChargingCurrent", 1, 0), 
-					259 => array("ControllerBatteryTemperature", 1, 0),
-					260 => array("StreetLightVoltage", 1, 0), 
-					261 => array("StreetLightCurrent", 1, 0), 
-					262 => array("StreetLightPower", 1, 0), 
+					256 => array("BatteryCapacity"), 
+					257 => array("BatteryVoltage"), 
+					258 => array("BatteryChargingCurrent"), 
+					259 => array("ControllerBatteryTemperature"),
+					260 => array("StreetLightVoltage"), 
+					261 => array("StreetLightCurrent"), 
+					262 => array("StreetLightPower"), 
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -196,20 +187,11 @@
 				$Address = $Key;
 				$Quantity = 1;
 				$Ident = $Values[0];
-				$Devisor = floatval($Values[1]);
-				$Signed = intval($Values[2]);
 				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
 				$Result = (unpack("n*", substr($Result,2)));
 				If (is_array($Result)) {
 					If (count($Result) == 1) {
 						$Response = $Result[1];
-						
-						If ($Signed == 0) {
-							$Value = ($Response/$Devisor);
-						}
-						else {
-							$Value = $this->bin16dec($Response/$Devisor);
-						}
 						
 						$this->DataEvaluation($Address, $Ident, $Value);
 						
