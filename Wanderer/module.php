@@ -90,6 +90,7 @@
 				$this->SetStatus(102);
 			}
 			$this->GetBasicData();
+			$this->GetData();
 			$this->SetTimerInterval("GetData", $this->ReadPropertyInteger("TimerGetData") * 1000);
 		}
 		else {
@@ -122,6 +123,7 @@
 						$this->SetStatus(102);
 					}
 					$this->GetBasicData();
+					$this->GetData();
 					$this->SetTimerInterval("GetData", $this->ReadPropertyInteger("TimerGetData") * 1000);
 				}
 				else {
