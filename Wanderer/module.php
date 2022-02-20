@@ -282,8 +282,9 @@
     		if ($num >= 0x80) {
         		return -(($num ^ 0xFF)+1);
     		} else {
-        return $num;
-    	}    
+        		return $num;
+    		}
+	}
 	    
 	private function SetValueWhenChanged($Ident, $Value)
     	{
