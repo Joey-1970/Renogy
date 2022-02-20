@@ -103,6 +103,28 @@
 	            throw new Exception("Invalid Ident");
 	    	}
 	}
+	
+	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
+    	{
+ 		switch ($Message) {
+			case IPS_KERNELSTARTED:
+				If ($this->ReadPropertyBoolean("Open") == true) {
+					If ($this->GetStatus() <> 102) {
+						$this->SetStatus(102);
+					}
+					$this->GetBasicData();
+					$this->SetTimerInterval("GetData", $this->ReadPropertyInteger("TimerGetData") * 1000);
+				}
+				else {
+					If ($this->GetStatus() <> 104) {
+						$this->SetStatus(104);
+					}
+					$this->SetTimerInterval("GetData", 0);
+				}	  	
+				break;
+			
+		}
+    	}          
 	    
     	public function GetBasicData()
 	{
