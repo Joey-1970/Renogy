@@ -45,14 +45,14 @@
 		
 		$this->RegisterVariableInteger("BatteryCapacity", "Batterie Kapazität", "~Intensity.100", 100);
 		$this->RegisterVariableFloat("BatteryVoltage", "Batterie Spannung", "~Volt", 110);
-		$this->RegisterVariableFloat("BatteryChargingCurrent", "Batterie Ladestrom", "~Miliampere", 120);
+		$this->RegisterVariableFloat("BatteryChargingCurrent", "Batterie Ladestrom", "~Milliampere", 120);
 		$this->RegisterVariableFloat("ControllerTemperature", "Controller Temperatur", "~Temperature", 130);
 		$this->RegisterVariableFloat("BatteryTemperature", "Batterie Temperatur", "~Temperature", 140);
 		$this->RegisterVariableFloat("StreetLightVoltage", "Ausgang Spannung", "~Volt", 150);
-		$this->RegisterVariableFloat("StreetLightCurrent", "Ausgang Strom", "~Miliampere", 160);
+		$this->RegisterVariableFloat("StreetLightCurrent", "Ausgang Strom", "~Milliampere", 160);
 		$this->RegisterVariableFloat("StreetLightPower", "Ausgang Leistung", "~Watt", 170);
 		$this->RegisterVariableFloat("SolarPanelVoltage", "Solar Panel Spannung", "~Volt", 180);
-		$this->RegisterVariableFloat("SolarPanelCurrent", "Solar Panel Strom", "~Miliampere", 190);
+		$this->RegisterVariableFloat("SolarPanelCurrent", "Solar Panel Strom", "~Milliampere", 190);
 		$this->RegisterVariableFloat("SolarPanelPower", "Solar Panel Leistung", "~Watt", 200);
 		
         }
