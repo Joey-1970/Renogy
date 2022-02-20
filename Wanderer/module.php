@@ -146,10 +146,10 @@
 	{
 		switch($Address) {
 			case "10":
-				// Sytem Spannung (high 4Bit) und Strom (low 4Bit)
-				$Voltage = $Value >> 4;
+				// Sytem Spannung (high 8 Bit) und Strom (low 8 Bit)
+				$Voltage = $Value >> 8;
 				$this->SetValueWhenChanged("SystemVoltage", $Voltage);
-				$Current = $Value & 15;
+				$Current = $Value & 255;
 				$this->SetValueWhenChanged("SystemCurrent", $Current);
 				break;
 			
