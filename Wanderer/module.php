@@ -166,7 +166,6 @@
 					}
 				}
 			}
-			$this->GetSystemDate();
 		}
 	}
 	    
@@ -207,7 +206,6 @@
 					}
 				}
 			}
-			$this->GetSystemDate();
 		}
 	}
 	
