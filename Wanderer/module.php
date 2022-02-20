@@ -51,6 +51,9 @@
 		$this->RegisterVariableFloat("StreetLightVoltage", "Ausgang Spannung", "~Volt", 150);
 		$this->RegisterVariableFloat("StreetLightCurrent", "Ausgang Strom", "~Miliampere", 160);
 		$this->RegisterVariableFloat("StreetLightPower", "Ausgang Leistung", "~Watt", 170);
+		$this->RegisterVariableFloat("SolarPanelVoltage", "Solar Panel Spannung", "~Volt", 180);
+		$this->RegisterVariableFloat("SolarPanelCurrent", "Solar Panel Strom", "~Miliampere", 190);
+		$this->RegisterVariableFloat("SolarPanelPower", "Solar Panel Leistung", "~Watt", 200);
 		
         }
        	
@@ -178,6 +181,9 @@
 					260 => array("StreetLightVoltage"), 
 					261 => array("StreetLightCurrent"), 
 					262 => array("StreetLightPower"), 
+					263 => array("SolarPanelVoltage"), 
+					264 => array("SolarPanelCurrent"), 
+					265 => array("SolarPanelPower"), 
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -244,6 +250,18 @@
 				break;
 			case "262":
 				// Ausgang Leistung
+				$this->SetValueWhenChanged($Ident, $Value);
+				break;
+			case "263":
+				// Solar Panel Spannung
+				$this->SetValueWhenChanged($Ident, $Value * 0.1);
+				break;
+			case "264":
+				// Solar Panel Strom
+				$this->SetValueWhenChanged($Ident, $Value * 0.01 * 1000);
+				break;
+			case "265":
+				// Solar Panel Leistung
 				$this->SetValueWhenChanged($Ident, $Value);
 				break;
 	      		
