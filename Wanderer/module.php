@@ -46,6 +46,8 @@
 		$this->RegisterVariableInteger("BatteryCapacity", "Batterie Kapazität", "~Intensity.100", 100);
 		$this->RegisterVariableFloat("BatteryVoltage", "Batterie Spannung", "~Volt", 110);
 		$this->RegisterVariableFloat("BatteryChargingCurrent", "Batterie Ladestrom", "~Ampere", 120);
+		$this->RegisterVariableFloat("ControllerTemperature", "Controller Temperatur", "~Temperature", 130);
+		$this->RegisterVariableFloat("BatteryTemperature", "Batterie Temperatur", "~Temperature", 140);
         }
        	
 	public function GetConfigurationForm() { 
@@ -177,6 +179,7 @@
 					256 => array("BatteryCapacity", 1, 0), 
 					257 => array("BatteryVoltage", 1, 0), 
 					258 => array("BatteryChargingCurrent", 1, 0), 
+					259 => array("ControllerBatteryTemperature", 1, 0), 
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -232,6 +235,13 @@
 			case "258":
 				// Batterie Ladestrom
 				$this->SetValueWhenChanged($Ident, $Value * 0.01);
+				break;
+			case "10":
+				// Controller Temperatur (high 8 Bit) und Battery Temperatur (low 8 Bit)
+				$ControllerTemperature = $Value >> 8;
+				$this->SetValueWhenChanged("ControllerTemperature", $ControllerTemperature);
+				$BatteryTemperature = $Value & 255;
+				$this->SetValueWhenChanged("BatteryTemperature", $BatteryTemperature);
 				break;
 	      		
 	        default:
