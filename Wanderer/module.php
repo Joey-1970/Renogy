@@ -17,6 +17,8 @@
 		$this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}"); // Modbus
 		
             	$this->RegisterPropertyBoolean("Open", false);
+		$this->RegisterPropertyInteger("TimerGetData", 10);
+		$this->RegisterTimer("GetData", 0, 'RenogyWanderer_GetData($_IPS["TARGET"]);');
 		
 		// Profile anlegen
 		$this->RegisterProfileInteger("RenogyWanderer.Voltage", "Information", "", " V", 0, 96, 0);
@@ -72,6 +74,7 @@
 			If ($this->GetStatus() <> 102) {
 				$this->SetStatus(102);
 			}
+			$this->GetBasicData();
 			
 		}
 		else {
@@ -100,7 +103,49 @@
 	    	}
 	}
 	    
-    	public function GetData()
+    	public function GetBasicData()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$Response = false;
+			$StatusVariables = array();
+			$StatusVariables = array(
+					10 => array("SystemVoltageCurrent", 1, 0), 
+					
+					);
+			
+			$this->SetValue("LastUpdate", time() );
+		
+			foreach ($StatusVariables as $Key => $Values) {
+				$Function = 3;
+				$Address = $Key;
+				$Quantity = 1;
+				$Ident = $Values[0];
+				$Devisor = floatval($Values[1]);
+				$Signed = intval($Values[2]);
+				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
+				$Result = (unpack("n*", substr($Result,2)));
+				If (is_array($Result)) {
+					If (count($Result) == 1) {
+						$Response = $Result[1];
+						
+						If ($Signed == 0) {
+							$Value = ($Response/$Devisor);
+						}
+						else {
+							$Value = $this->bin16dec($Response/$Devisor);
+						}
+						
+						$this->DataEvaluation($Address, $Ident, $Value);
+						
+						$this->SendDebug("GetData", $Ident.": ".$Value, 0);
+					}
+				}
+			}
+			$this->GetSystemDate();
+		}
+	}
+	    
+	public function GetData()
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$Response = false;
