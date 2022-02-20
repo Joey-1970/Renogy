@@ -22,7 +22,7 @@
 		$this->RegisterProfileInteger("RenogyWanderer.Voltage", "Information", "", " V", 0, 96, 0);
 		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 12, "12", "Information", -1);
 		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 24, "24", "Information", -1);
-		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltaget", 36, "36", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 36, "36", "Information", -1);
 		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 48, "48", "Information", -1);
 		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 96, "96", "Information", -1);
 		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 255, "Auto", "Information", -1);
