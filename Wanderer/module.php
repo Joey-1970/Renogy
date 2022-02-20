@@ -44,6 +44,8 @@
 		
 		
 		$this->RegisterVariableInteger("BatteryCapacity", "Batterie Kapazität", "~Intensity.100", 100);
+		$this->RegisterVariableFloat("BatteryVoltage", "Batterie Spannung", "~Volt", 110);
+		$this->RegisterVariableFloat("BatteryChargingCurrent", "Batterie Ladestrom", "~Ampere", 120);
         }
        	
 	public function GetConfigurationForm() { 
@@ -130,7 +132,7 @@
 			$Response = false;
 			$StatusVariables = array();
 			$StatusVariables = array(
-					10 => array("SystemVoltageCurrent", 1, 0), 
+					10 => array("SystemVoltageCurrent", 1, 0) 
 					
 					);
 			
@@ -173,7 +175,8 @@
 			$StatusVariables = array();
 			$StatusVariables = array(
 					256 => array("BatteryCapacity", 1, 0), 
-					
+					257 => array("BatteryVoltage", 1, 0), 
+					258 => array("BatteryChargingCurrent", 1, 0), 
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -221,6 +224,14 @@
 			case "256":
 				// Batterie Kapazität
 				$this->SetValueWhenChanged($Ident, $Value);
+				break;
+			case "257":
+				// Batterie Spannung
+				$this->SetValueWhenChanged($Ident, $Value * 0.1);
+				break;
+			case "258":
+				// Batterie Ladestrom
+				$this->SetValueWhenChanged($Ident, $Value * 0.01);
 				break;
 	      		
 	        default:
