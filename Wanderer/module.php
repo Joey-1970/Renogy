@@ -19,8 +19,26 @@
             	$this->RegisterPropertyBoolean("Open", false);
 		
 		// Profile anlegen
+		$this->RegisterProfileInteger("RenogyWanderer.Voltage", "Information", "", " V", 0, 96, 0);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 12, "12", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 24, "24", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltaget", 36, "36", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 48, "48", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 96, "96", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Voltage", 255, "Auto", "Information", -1);
+		
+		$this->RegisterProfileInteger("RenogyWanderer.Current", "Information", "", " A", 0, 60, 0);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Current", 10, "10", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Current", 20, "20", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Current", 30, "30", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Current", 45, "45", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.Current", 60, "60", "Information", -1);
+		
 		
 		// Status-Variablen anlegen
+		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
+		$this->RegisterVariableInteger("SystemVoltage", "System Spannung", "RenogyWanderer.Voltage", 20);
+		$this->RegisterVariableInteger("SystemCurrent", "System Strom", "RenogyWanderer.Current", 30);
 		
         }
        	
@@ -105,7 +123,7 @@
 					);
 			
 			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
-			// {"DataID":"{E310B701-4AE7-458E-B618-EC13A1A6F6A8}","Function":4,"Address":1024,"Quantity":1,"Data":""}
+		
 			foreach ($StatusVariables as $Key => $Values) {
 				$Function = 3;
 				$Address = $Key;
@@ -143,6 +161,8 @@
 	{
 		switch($Address) {
 			case "10":
+				// Sytem Spannung (high 4Bit) und Strom (low 4Bit)
+				
 				
 				break;
 			
@@ -152,6 +172,13 @@
 	    	}
 	}
 	
+	private function SetValueWhenChanged($Ident, $Value)
+    	{
+        	if ($this->GetValue($Ident) != $Value) {
+            		$this->SetValue($Ident, $Value);
+        	}
+    	}    
+	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
 	        if (!IPS_VariableProfileExists($Name))
