@@ -45,9 +45,13 @@
 		
 		$this->RegisterVariableInteger("BatteryCapacity", "Batterie Kapazität", "~Intensity.100", 100);
 		$this->RegisterVariableFloat("BatteryVoltage", "Batterie Spannung", "~Volt", 110);
-		$this->RegisterVariableFloat("BatteryChargingCurrent", "Batterie Ladestrom", "~Ampere", 120);
+		$this->RegisterVariableFloat("BatteryChargingCurrent", "Batterie Ladestrom", "~Miliampere", 120);
 		$this->RegisterVariableFloat("ControllerTemperature", "Controller Temperatur", "~Temperature", 130);
 		$this->RegisterVariableFloat("BatteryTemperature", "Batterie Temperatur", "~Temperature", 140);
+		$this->RegisterVariableFloat("StreetLightVoltage", "Ausgang Spannung", "~Volt", 150);
+		$this->RegisterVariableFloat("StreetLightCurrent", "Ausgang Strom", "~Miliampere", 160);
+		$this->RegisterVariableFloat("StreetLightPower", "Ausgang Leistung", "~Watt", 170);
+		
         }
        	
 	public function GetConfigurationForm() { 
@@ -179,7 +183,10 @@
 					256 => array("BatteryCapacity", 1, 0), 
 					257 => array("BatteryVoltage", 1, 0), 
 					258 => array("BatteryChargingCurrent", 1, 0), 
-					259 => array("ControllerBatteryTemperature", 1, 0), 
+					259 => array("ControllerBatteryTemperature", 1, 0),
+					260 => array("StreetLightVoltage", 1, 0), 
+					261 => array("StreetLightCurrent", 1, 0), 
+					262 => array("StreetLightPower", 1, 0), 
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -222,7 +229,7 @@
 				$Voltage = $Value >> 8;
 				$this->SetValueWhenChanged("SystemVoltage", $Voltage);
 				$Current = $Value & 255;
-				$this->SetValueWhenChanged("SystemCurrent", $Current);
+				$this->SetValueWhenChanged("SystemCurrent", $Current * 1000);
 				break;
 			case "256":
 				// Batterie Kapazität
@@ -234,9 +241,9 @@
 				break;
 			case "258":
 				// Batterie Ladestrom
-				$this->SetValueWhenChanged($Ident, $Value * 0.01);
+				$this->SetValueWhenChanged($Ident, $Value * 0.01 * 1000);
 				break;
-			case "10":
+			case "259":
 				// Controller Temperatur (high 8 Bit) und Battery Temperatur (low 8 Bit)
 				$ControllerTemperature = $Value >> 8;
 				$ControllerTemperature = $this->bin8dec($ControllerTemperature);
@@ -244,6 +251,18 @@
 				$BatteryTemperature = $Value & 255;
 				$BatteryTemperature = $this->bin8dec($BatteryTemperature);
 				$this->SetValueWhenChanged("BatteryTemperature", $BatteryTemperature);
+				break;
+			case "260":
+				// Ausgang Spannung
+				$this->SetValueWhenChanged($Ident, $Value * 0.1);
+				break;
+			case "261":
+				// Ausgang Strom
+				$this->SetValueWhenChanged($Ident, $Value * 0.01 * 1000);
+				break;
+			case "262":
+				// Ausgang Leistung
+				$this->SetValueWhenChanged($Ident, $Value);
 				break;
 	      		
 	        default:
