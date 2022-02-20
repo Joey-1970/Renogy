@@ -239,8 +239,10 @@
 			case "10":
 				// Controller Temperatur (high 8 Bit) und Battery Temperatur (low 8 Bit)
 				$ControllerTemperature = $Value >> 8;
+				$ControllerTemperature = $this->bin8dec($ControllerTemperature);
 				$this->SetValueWhenChanged("ControllerTemperature", $ControllerTemperature);
 				$BatteryTemperature = $Value & 255;
+				$BatteryTemperature = $this->bin8dec($BatteryTemperature);
 				$this->SetValueWhenChanged("BatteryTemperature", $BatteryTemperature);
 				break;
 	      		
@@ -249,6 +251,19 @@
 	    	}
 	}
 	
+	private function bin8dec($bin) 
+	{
+    		// Function to convert 8bit binary numbers to integers using two's complement
+    		$num = bindec($bin);
+    		if ($num > 0xFF) { 
+			return false; 
+		}
+    		if ($num >= 0x80) {
+        		return -(($num ^ 0xFF)+1);
+    		} else {
+        return $num;
+    	}    
+	    
 	private function SetValueWhenChanged($Ident, $Value)
     	{
         	if ($this->GetValue($Ident) != $Value) {
