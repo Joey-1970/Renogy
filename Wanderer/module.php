@@ -82,25 +82,75 @@
 	    	}
 	}
 	    
-    	public function ReceiveData($JSONString)
-    	{
-		$data = json_decode($JSONString);
-		$buffer = utf8_decode($data->Buffer);
-		$this->SendDebug("ReceiveData", "Daten: ".$buffer, 0);
-		$lines = explode("\r\n", $buffer);
-
-		$parser = new BultonFr\NMEA\Parser();
-
-		foreach ($lines as $line) {
-		    	if (!$line) {
-				continue;
+    	public function GetData()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$Response = false;
+			$StatusVariables = array();
+			$StatusVariables = array(
+					10 => array("SystemVoltageCurrent", 1, 0), 
+					/*
+					35852 => array("StatusCommand_1", 1, 0),
+    					35862 => array("ResetAlarmrelais", 1, 0), 
+					35887 => array("StatusAlarmrelais", 1, 0), 
+    					35888 => array("StatusCommand_2", 1, 0), 
+					35901 => array("Schornsteinfegerfunktion", 1, 0),
+    					35903 => array("Brennerleistung", 1, 0),
+					35904 => array("Handbetrieb", 1, 0),
+					35905 => array("Reglerstoppfunktion", 1, 0),
+					35906 => array("ReglerstoppSollwert", 1, 0),
+					37981 => array("Wasserdruck", 10, 0),
+					37982 => array("StatusCommand_3", 1, 0),
+					*/
+					);
+			
+			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
+			// {"DataID":"{E310B701-4AE7-458E-B618-EC13A1A6F6A8}","Function":4,"Address":1024,"Quantity":1,"Data":""}
+			foreach ($StatusVariables as $Key => $Values) {
+				$Function = 3;
+				$Address = $Key;
+				$Quantity = 1;
+				$Ident = $Values[0];
+				$Devisor = floatval($Values[1]);
+				$Signed = intval($Values[2]);
+				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
+				$Result = (unpack("n*", substr($Result,2)));
+				If (is_array($Result)) {
+					If (count($Result) == 1) {
+						$Response = $Result[1];
+						
+						If ($Signed == 0) {
+							$Value = ($Response/$Devisor);
+						}
+						else {
+							$Value = $this->bin16dec($Response/$Devisor);
+						}
+						
+						$this->DataEvaluation($Address, $Ident, $Value);
+						
+						$this->SendDebug("GetData", $Ident.": ".$Value, 0);
+						If ($this->GetValue($Name) <> $Value) {
+							$this->SetValue($Name, $Value);
+						}
+					}
+				}
 			}
-
-		  
+			$this->GetSystemDate();
 		}
-    	}
+	}
 	
-
+	private function DataEvaluation(int $Address, string $Ident, int $Value)
+	{
+		switch($Address) {
+			case "10":
+				
+				break;
+			
+	      		
+	        default:
+	            throw new Exception("Invalid Ident");
+	    	}
+	}
 	
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
