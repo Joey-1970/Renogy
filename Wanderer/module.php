@@ -42,6 +42,10 @@
 		$this->RegisterVariableInteger("SystemVoltage", "System Spannung", "RenogyWanderer.Voltage", 20);
 		$this->RegisterVariableInteger("SystemCurrent", "System Strom", "RenogyWanderer.Current", 30);
 		
+		
+		
+		
+		$this->RegisterVariableInteger("BatteryCapacity", "Batterie Kapazität", "~Intensity.100", 100);
         }
        	
 	public function GetConfigurationForm() { 
@@ -54,6 +58,8 @@
 		
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox", "caption" => "Aktiv"); 
+		$arrayElements[] = array("type" => "NumberSpinner", "name" => "TimerGetData", "caption" => "Daten aktualisieren (10 - 360)", "minimum" => 10, "maximum" => 360, "suffix" => "sek");
+
 		
 			
 		$arrayActions = array(); 
@@ -75,13 +81,13 @@
 				$this->SetStatus(102);
 			}
 			$this->GetBasicData();
-			
+			$this->SetTimerInterval("GetData", $this->ReadPropertyInteger("TimerGetData") * 1000);
 		}
 		else {
 			If ($this->GetStatus() <> 104) {
 				$this->SetStatus(104);
 			}
-			
+			$this->SetTimerInterval("GetData", 0);
 		}	   
 	}
 	
@@ -89,12 +95,7 @@
 	{
   		switch($Ident) {
 			case "VPNActive":
-				If ($Value == true) {
-					$this->StartVPN();
-				}
-				else {
-					$this->StopVPN();
-				}
+				
 				break;
 			
 	      		
@@ -151,7 +152,7 @@
 			$Response = false;
 			$StatusVariables = array();
 			$StatusVariables = array(
-					10 => array("SystemVoltageCurrent", 1, 0), 
+					256 => array("BatteryCapacity", 1, 0), 
 					
 					);
 			
@@ -197,7 +198,10 @@
 				$Current = $Value & 255;
 				$this->SetValueWhenChanged("SystemCurrent", $Current);
 				break;
-			
+			case "256":
+				// Batterie Kapazität
+				$this->SetValueWhenChanged($Ident, $Value);
+				break;
 	      		
 	        default:
 	            throw new Exception("Invalid Ident");
