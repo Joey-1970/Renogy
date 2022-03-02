@@ -234,10 +234,10 @@
 			case "259":
 				// Controller Temperatur (high 8 Bit) und Battery Temperatur (low 8 Bit)
 				$ControllerTemperature = $Value >> 8;
-				$ControllerTemperature = $this->bin8dec($ControllerTemperature);
+				//$ControllerTemperature = $this->bin8dec($ControllerTemperature);
 				$this->SetValueWhenChanged("ControllerTemperature", $ControllerTemperature);
 				$BatteryTemperature = $Value & 255;
-				$BatteryTemperature = $this->bin8dec($BatteryTemperature);
+				//$BatteryTemperature = $this->bin8dec($BatteryTemperature);
 				$this->SetValueWhenChanged("BatteryTemperature", $BatteryTemperature);
 				break;
 			case "260":
