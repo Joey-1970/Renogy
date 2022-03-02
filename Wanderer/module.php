@@ -39,7 +39,7 @@
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
 		$this->RegisterVariableInteger("SystemVoltage", "System Spannung", "RenogyWanderer.Voltage", 20);
 		$this->RegisterVariableInteger("SystemCurrent", "System Strom", "RenogyWanderer.Current", 30);
-		
+		$this->RegisterVariableString("ProductModel", "Modell", "", 40);
 		
 		
 		
@@ -143,8 +143,8 @@
 			$Response = false;
 			$StatusVariables = array();
 			$StatusVariables = array(
-					10 => array("SystemVoltageCurrent") 
-					
+					10 => array("SystemVoltageCurrent"),
+					12 => array("ProductModel")
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -217,6 +217,10 @@
 				$this->SetValueWhenChanged("SystemVoltage", $Voltage);
 				$Current = $Value & 255;
 				$this->SetValueWhenChanged("SystemCurrent", $Current * 1000);
+				break;
+			case "12":
+				// Produkt Modell
+				$this->SetValueWhenChanged($Ident, $Value);
 				break;
 			case "256":
 				// Batterie Kapazität
