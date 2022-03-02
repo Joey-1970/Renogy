@@ -199,10 +199,9 @@
 				If (is_array($Result)) {
 					If (count($Result) == 1) {
 						$Value = $Result[1];
+						$this->SendDebug("GetData", $Address." - ".$Ident.": ".$Value, 0);
 						
 						$this->DataEvaluation($Address, $Ident, $Value);
-						
-						$this->SendDebug("GetData", $Ident.": ".$Value, 0);
 					}
 				}
 			}
