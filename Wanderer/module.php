@@ -158,7 +158,7 @@
 				$Result = (unpack("n*", substr($Result,2)));
 				If (is_array($Result)) {
 					If (count($Result) == 1) {
-						$Response = $Result[1];
+						$Value = $Result[1];
 						
 						$this->DataEvaluation($Address, $Ident, $Value);
 						
@@ -198,7 +198,7 @@
 				$Result = (unpack("n*", substr($Result,2)));
 				If (is_array($Result)) {
 					If (count($Result) == 1) {
-						$Response = $Result[1];
+						$Value = $Result[1];
 						
 						$this->DataEvaluation($Address, $Ident, $Value);
 						
