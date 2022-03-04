@@ -290,7 +290,8 @@
 			case "21":
 				// Software Version_2
 				$SoftwareVersion = unserialize($this->GetBuffer("SoftwareVersion"));
-				$SoftwareVersion[1] = dechex($Value);
+				$SoftwareVersion[1] = dechex($Value >> 8);
+				$SoftwareVersion[2] = dechex($Value & 255);
 				$this->SetBuffer("SoftwareVersion", serialize($SoftwareVersion));
 				$this->SetValueWhenChanged("SoftwareVersion", "V".implode(".", $SoftwareVersion));
 				break;
@@ -304,7 +305,8 @@
 			case "23":
 				// Hardware Version_2
 				$HardwareVersion = unserialize($this->GetBuffer("HardwareVersion"));
-				$HardwareVersion[1] = dechex($Value);
+				$HardwareVersion[1] = dechex($Value >> 8);
+				$HardwareVersion[2] = dechex($Value & 255);
 				$this->SetBuffer("HardwareVersion", serialize($HardwareVersion));
 				$this->SetValueWhenChanged("HardwareVersion", "V".implode(".", $HardwareVersion));
 				break;
