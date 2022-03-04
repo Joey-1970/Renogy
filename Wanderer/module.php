@@ -283,7 +283,7 @@
 			case "20":
 				// Software Version_1
 				$SoftwareVersion = array();
-				$SoftwareVersion = $Value & 255;
+				$Value = $Value & 255;
 				$SoftwareVersion[0] = dechex($Value);
 				$this->SetBuffer("SoftwareVersion", serialize($SoftwareVersion));
 				break;
@@ -297,7 +297,7 @@
 			case "22":
 				// Hardware Version_1
 				$HardwareVersion = array();
-				$HardwareVersion = $Value & 255;
+				$Value = $Value & 255;
 				$HardwareVersion[0] = dechex($Value);
 				$this->SetBuffer("HardwareVersion", serialize($HardwareVersion));
 				break;
