@@ -229,6 +229,34 @@
 				// Produkt Modell_1
 				$this->SendDebug("DataEvaluation", "Produkt Modell_1: ".$Value, 0);
 				break;
+			case "13":
+				// Produkt Modell_1
+				$this->SendDebug("DataEvaluation", "Produkt Modell_2: ".$Value, 0);
+				break;
+			case "14":
+				// Produkt Modell_1
+				$this->SendDebug("DataEvaluation", "Produkt Modell_3: ".$Value, 0);
+				break;
+			case "15":
+				// Produkt Modell_1
+				$this->SendDebug("DataEvaluation", "Produkt Modell_4: ".$Value, 0);
+				break;
+			case "16":
+				// Produkt Modell_1
+				$this->SendDebug("DataEvaluation", "Produkt Modell_5: ".$Value, 0);
+				break;
+			case "17":
+				// Produkt Modell_1
+				$this->SendDebug("DataEvaluation", "Produkt Modell_6: ".$Value, 0);
+				break;
+			case "18":
+				// Produkt Modell_1
+				$this->SendDebug("DataEvaluation", "Produkt Modell_7: ".$Value, 0);
+				break;
+			case "19":
+				// Produkt Modell_1
+				$this->SendDebug("DataEvaluation", "Produkt Modell_8: ".$Value, 0);
+				break;
 			case "256":
 				// Batterie Kapazität
 				$this->SetValueWhenChanged($Ident, $Value);
