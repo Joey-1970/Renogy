@@ -227,41 +227,41 @@
 				break;
 			case "12":
 				// Produkt Modell_1
-				$ProductModell = array();
-				$ProductModell[0] = $this->Hex2Str(dechex($Value));
-				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				$ProductModel = array();
+				$ProductModel[0] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModel", serialize($ProductModel));
 				
 				//$this->SendDebug("DataEvaluation", "Produkt Modell_1: ".$Value, 0);
 				break;
 			case "13":
 				// Produkt Modell_2
-				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
-				$ProductModell[1] = $this->Hex2Str(dechex($Value));
-				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
+				$ProductModel[1] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModel", serialize($ProductModel));
 				
 				//$this->SendDebug("DataEvaluation", "Produkt Modell_2: ".$Value, 0);
 				break;
 			case "14":
 				// Produkt Modell_3
-				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
-				$ProductModell[2] = $this->Hex2Str(dechex($Value));
-				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
+				$ProductModel[2] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModel", serialize($ProductModel));
 				
 				//$this->SendDebug("DataEvaluation", "Produkt Modell_3: ".$Value, 0);
 				break;
 			case "15":
 				// Produkt Modell_4
-				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
-				$ProductModell[3] = $this->Hex2Str(dechex($Value));
-				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
+				$ProductModel[3] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModel", serialize($ProductModel));
 				
 				//$this->SendDebug("DataEvaluation", "Produkt Modell_4: ".$Value, 0);
 				break;
 			case "16":
 				// Produkt Modell_5
-				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
-				$ProductModell[4] = $this->Hex2Str(dechex($Value));
-				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
+				$ProductModel[4] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModel", serialize($ProductModel));
 				
 				//$this->SendDebug("DataEvaluation", "Produkt Modell_5: ".$Value, 0);
 				break;
