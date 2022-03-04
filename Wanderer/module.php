@@ -40,6 +40,8 @@
 		$this->RegisterVariableInteger("SystemVoltage", "System Spannung", "RenogyWanderer.Voltage", 20);
 		$this->RegisterVariableInteger("SystemCurrent", "System Strom", "RenogyWanderer.Current", 30);
 		$this->RegisterVariableString("ProductModel", "Modell", "", 40);
+		$this->RegisterVariableString("SoftwareVersion", "Software Version", "", 50);
+		$this->RegisterVariableString("HardwareVersion", "Hardware Version", "", 60);
 		
 		
 		
@@ -151,7 +153,11 @@
 					16 => array("ProductModel_5"),
 					17 => array("ProductModel_6"),
 					18 => array("ProductModel_7"),
-					19 => array("ProductModel_8")
+					19 => array("ProductModel_8"),
+					20 => array("SoftwareVersion_1"),
+					21 => array("SoftwareVersion_2"),
+					22 => array("HardwareVersion_1"),
+					23 => array("HardwareVersion_2")
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -230,65 +236,77 @@
 				$ProductModel = array();
 				$ProductModel[0] = $this->Hex2Str(dechex($Value));
 				$this->SetBuffer("ProductModel", serialize($ProductModel));
-				
-				//$this->SendDebug("DataEvaluation", "Produkt Modell_1: ".$Value, 0);
 				break;
 			case "13":
 				// Produkt Modell_2
 				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
 				$ProductModel[1] = $this->Hex2Str(dechex($Value));
 				$this->SetBuffer("ProductModel", serialize($ProductModel));
-				
-				//$this->SendDebug("DataEvaluation", "Produkt Modell_2: ".$Value, 0);
 				break;
 			case "14":
 				// Produkt Modell_3
 				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
 				$ProductModel[2] = $this->Hex2Str(dechex($Value));
 				$this->SetBuffer("ProductModel", serialize($ProductModel));
-				
-				//$this->SendDebug("DataEvaluation", "Produkt Modell_3: ".$Value, 0);
 				break;
 			case "15":
 				// Produkt Modell_4
 				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
 				$ProductModel[3] = $this->Hex2Str(dechex($Value));
 				$this->SetBuffer("ProductModel", serialize($ProductModel));
-				
-				//$this->SendDebug("DataEvaluation", "Produkt Modell_4: ".$Value, 0);
 				break;
 			case "16":
 				// Produkt Modell_5
 				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
 				$ProductModel[4] = $this->Hex2Str(dechex($Value));
 				$this->SetBuffer("ProductModel", serialize($ProductModel));
-				
-				//$this->SendDebug("DataEvaluation", "Produkt Modell_5: ".$Value, 0);
 				break;
 			case "17":
 				// Produkt Modell_6
 				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
 				$ProductModel[5] = $this->Hex2Str(dechex($Value));
 				$this->SetBuffer("ProductModel", serialize($ProductModel));
-				
-				//$this->SendDebug("DataEvaluation", "Produkt Modell_6: ".$Value, 0);
 				break;
 			case "18":
 				// Produkt Modell_7
 				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
 				$ProductModel[6] = $this->Hex2Str(dechex($Value));
 				$this->SetBuffer("ProductModel", serialize($ProductModel));
-				
-				$this->SendDebug("DataEvaluation", "Produkt Modell_7: ".$Value, 0);
 				break;
 			case "19":
 				// Produkt Modell_8
 				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
 				$ProductModel[7] = $this->Hex2Str(dechex($Value));
 				$this->SetBuffer("ProductModel", serialize($ProductModel));
-				
 				$this->SetValueWhenChanged("ProductModel", implode($ProductModel));
-				//$this->SendDebug("DataEvaluation", "Produkt Modell_8: ".$Value, 0);
+				break;
+			case "20":
+				// Software Version_1
+				$SoftwareVersion = array();
+				$SoftwareVersion = $Value & 255;
+				$SoftwareVersion[0] = dechex($Value);
+				$this->SetBuffer("SoftwareVersion", serialize($SoftwareVersion));
+				break;
+			case "21":
+				// Software Version_2
+				$SoftwareVersion = unserialize($this->GetBuffer("SoftwareVersion"));
+				$SoftwareVersion[1] = dechex($Value);
+				$this->SetBuffer("SoftwareVersion", serialize($SoftwareVersion));
+				$this->SetValueWhenChanged("SoftwareVersion", "V".implode(".", $SoftwareVersion));
+				break;
+			case "22":
+				// Hardware Version_1
+				$HardwareVersion = array();
+				$HardwareVersion = $Value & 255;
+				$HardwareVersion[0] = dechex($Value);
+				$this->SetBuffer("HardwareVersion", serialize($HardwareVersion));
+				break;
+			case "23":
+				// Hardware Version_2
+				$HardwareVersion = unserialize($this->GetBuffer("HardwareVersion"));
+				$HardwareVersion[1] = dechex($Value);
+				$this->SetBuffer("HardwareVersion", serialize($HardwareVersion));
+				$this->SetValueWhenChanged("HardwareVersion", "V".implode(".", $HardwareVersion));
 				break;
 			case "256":
 				// Batterie Kapazität
