@@ -267,27 +267,27 @@
 				break;
 			case "17":
 				// Produkt Modell_6
-				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
-				$ProductModell[5] = $this->Hex2Str(dechex($Value));
-				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
+				$ProductModel[5] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModel", serialize($ProductModel));
 				
 				//$this->SendDebug("DataEvaluation", "Produkt Modell_6: ".$Value, 0);
 				break;
 			case "18":
 				// Produkt Modell_7
-				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
-				$ProductModell[6] = $this->Hex2Str(dechex($Value));
-				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
+				$ProductModel[6] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModel", serialize($ProductModel));
 				
 				$this->SendDebug("DataEvaluation", "Produkt Modell_7: ".$Value, 0);
 				break;
 			case "19":
 				// Produkt Modell_8
-				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
-				$ProductModell[7] = $this->Hex2Str(dechex($Value));
-				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				$ProductModel = unserialize($this->GetBuffer("ProductModel"));
+				$ProductModel[7] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModel", serialize($ProductModel));
 				
-				$this->SetValueWhenChanged("ProductModell", implode($ProductModell));
+				$this->SetValueWhenChanged("ProductModel", implode($ProductModel));
 				//$this->SendDebug("DataEvaluation", "Produkt Modell_8: ".$Value, 0);
 				break;
 			case "256":
