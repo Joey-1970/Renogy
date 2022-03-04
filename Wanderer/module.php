@@ -144,7 +144,14 @@
 			$StatusVariables = array();
 			$StatusVariables = array(
 					10 => array("SystemVoltageCurrent"),
-					12 => array("ProductModel")
+					12 => array("ProductModel_1"),
+					13 => array("ProductModel_2"),
+					14 => array("ProductModel_3"),
+					15 => array("ProductModel_4"),
+					16 => array("ProductModel_5"),
+					17 => array("ProductModel_6"),
+					18 => array("ProductModel_7"),
+					19 => array("ProductModel_8")
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -219,8 +226,8 @@
 				$this->SetValueWhenChanged("SystemCurrent", $Current * 1000);
 				break;
 			case "12":
-				// Produkt Modell
-				$this->SetValueWhenChanged($Ident, $Value);
+				// Produkt Modell_1
+				$this->SendDebug("DataEvaluation", "Produkt Modell_1: ".$Value, 0);
 				break;
 			case "256":
 				// Batterie Kapazität
