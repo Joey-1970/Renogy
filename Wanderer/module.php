@@ -227,35 +227,68 @@
 				break;
 			case "12":
 				// Produkt Modell_1
-				$this->SendDebug("DataEvaluation", "Produkt Modell_1: ".$Value, 0);
+				$ProductModell = array();
+				$ProductModell[0] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				
+				//$this->SendDebug("DataEvaluation", "Produkt Modell_1: ".$Value, 0);
 				break;
 			case "13":
-				// Produkt Modell_1
-				$this->SendDebug("DataEvaluation", "Produkt Modell_2: ".$Value, 0);
+				// Produkt Modell_2
+				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
+				$ProductModell[1] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				
+				//$this->SendDebug("DataEvaluation", "Produkt Modell_2: ".$Value, 0);
 				break;
 			case "14":
-				// Produkt Modell_1
-				$this->SendDebug("DataEvaluation", "Produkt Modell_3: ".$Value, 0);
+				// Produkt Modell_3
+				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
+				$ProductModell[2] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				
+				//$this->SendDebug("DataEvaluation", "Produkt Modell_3: ".$Value, 0);
 				break;
 			case "15":
-				// Produkt Modell_1
-				$this->SendDebug("DataEvaluation", "Produkt Modell_4: ".$Value, 0);
+				// Produkt Modell_4
+				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
+				$ProductModell[3] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				
+				//$this->SendDebug("DataEvaluation", "Produkt Modell_4: ".$Value, 0);
 				break;
 			case "16":
-				// Produkt Modell_1
-				$this->SendDebug("DataEvaluation", "Produkt Modell_5: ".$Value, 0);
+				// Produkt Modell_5
+				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
+				$ProductModell[4] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				
+				//$this->SendDebug("DataEvaluation", "Produkt Modell_5: ".$Value, 0);
 				break;
 			case "17":
-				// Produkt Modell_1
-				$this->SendDebug("DataEvaluation", "Produkt Modell_6: ".$Value, 0);
+				// Produkt Modell_6
+				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
+				$ProductModell[5] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				
+				//$this->SendDebug("DataEvaluation", "Produkt Modell_6: ".$Value, 0);
 				break;
 			case "18":
-				// Produkt Modell_1
+				// Produkt Modell_7
+				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
+				$ProductModell[6] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				
 				$this->SendDebug("DataEvaluation", "Produkt Modell_7: ".$Value, 0);
 				break;
 			case "19":
-				// Produkt Modell_1
-				$this->SendDebug("DataEvaluation", "Produkt Modell_8: ".$Value, 0);
+				// Produkt Modell_8
+				$ProductModell = unserialize($this->GetBuffer("ProductModell"));
+				$ProductModell[7] = $this->Hex2Str(dechex($Value));
+				$this->SetBuffer("ProductModell", serialize($ProductModell));
+				
+				$this->SetValueWhenChanged("ProductModell", implode($ProductModell));
+				//$this->SendDebug("DataEvaluation", "Produkt Modell_8: ".$Value, 0);
 				break;
 			case "256":
 				// Batterie Kapazität
@@ -318,6 +351,13 @@
     		} else {
         		return $Number;
     		}
+	}
+	    
+	private function Hex2Str($hex) 
+	{
+	    	$str = '';
+	    	for ($i=0;$i<strlen($hex);$i+=2) $str .= chr(hexdec(substr($hex,$i,2)));
+	return $str;
 	}
 	    
 	private function SetValueWhenChanged($Ident, $Value)
