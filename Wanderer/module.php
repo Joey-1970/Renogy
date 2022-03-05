@@ -43,10 +43,17 @@
 		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 5, "Schwebender Lade Modus", "Information", -1);
 		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 6, "Limitierter Lade Modus", "Information", -1);
 		
+		$this->RegisterProfileInteger("RenogyWanderer.ProductType", "Information", "", "", 0, 1, 0);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ProductType", 1, "Controller", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ProductType", 2, "Inverter", "Information", -1);
+		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
 		$this->RegisterVariableInteger("SystemVoltage", "System Spannung", "RenogyWanderer.Voltage", 20);
-		$this->RegisterVariableInteger("SystemCurrent", "System Strom", "RenogyWanderer.Current", 30);
+		$this->RegisterVariableInteger("SystemChargingCurrent", "System Lade-Strom", "RenogyWanderer.Current", 30);
+		$this->RegisterVariableInteger("SystemDischargingCurrent", "System Entlade-Strom", "RenogyWanderer.Current", 32);
+		$this->RegisterVariableInteger("ProductType", "Typ", "RenogyWanderer.ProductType", 34);
+		
 		$this->RegisterVariableString("ProductModel", "Modell", "", 40);
 		$this->RegisterVariableString("SoftwareVersion", "Software Version", "", 50);
 		$this->RegisterVariableString("HardwareVersion", "Hardware Version", "", 60);
@@ -162,7 +169,8 @@
 			$Response = false;
 			$StatusVariables = array();
 			$StatusVariables = array(
-					10 => array("SystemVoltageCurrent"),
+					10 => array("SystemVoltageChargingCurrent"),
+					11 => array("SystemDischargingCurrentProductType"),
 					12 => array("ProductModel_1"),
 					13 => array("ProductModel_2"),
 					14 => array("ProductModel_3"),
@@ -250,11 +258,18 @@
 	{
 		switch($Address) {
 			case "10":
-				// Sytem Spannung (high 8 Bit) und Strom (low 8 Bit)
+				// Sytem Spannung (high 8 Bit) und Lade-Strom (low 8 Bit)
 				$Voltage = $Value >> 8;
 				$this->SetValueWhenChanged("SystemVoltage", $Voltage);
 				$Current = $Value & 255;
-				$this->SetValueWhenChanged("SystemCurrent", $Current * 1000);
+				$this->SetValueWhenChanged("SystemChargingCurrent", $Current * 1000);
+				break;
+			case "11":
+				// Sytem Entlade-Strom (high 8 Bit) und Produkt Typ (low 8 Bit)
+				$Current = $Value >> 8;
+				$this->SetValueWhenChanged("SystemDishargingCurrent", $Current * 1000);
+				$ProductType = $Value & 255;
+				$this->SetValueWhenChanged("ProductType", $ProductType);
 				break;
 			case "12":
 				// Produkt Modell_1
