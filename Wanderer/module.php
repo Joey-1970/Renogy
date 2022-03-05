@@ -59,6 +59,11 @@
 		$this->RegisterVariableFloat("SolarPanelCurrent", "Solar Panel Strom", "~Milliampere", 190);
 		$this->RegisterVariableFloat("SolarPanelPower", "Solar Panel Leistung", "~Watt", 200);
 		
+		$this->RegisterVariableBoolean("StreetLightStatus", "Ausgang Status", "~Switch", 300);
+		$this->RegisterVariableInteger("StreetLightBrightness", "Ausgang Helligkeit", "~Intensity.100", 310);
+		$this->RegisterVariableInteger("ChargingState", "Lade Status", "", 320);
+		
+		
         }
        	
 	public function GetConfigurationForm() { 
@@ -203,6 +208,7 @@
 					263 => array("SolarPanelVoltage"), 
 					264 => array("SolarPanelCurrent"), 
 					265 => array("SolarPanelPower"), 
+					288 => array("StreetLightStatusChargingState") 
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -374,6 +380,16 @@
 			case "265":
 				// Solar Panel Leistung
 				$this->SetValueWhenChanged($Ident, $Value);
+				break;
+			case "288":
+				// Ausgangs- und Ladestatus
+				$HighByte = $Value << 8;
+				$StreetLightStatus = $HighByte >> 7;
+				$this->SetValueWhenChanged("StreetLightStatus", $StreetLightStatus);
+				$StreetLightBrightness = $HighByte & 128;
+				$this->SetValueWhenChanged("StreetLightBrightness", $StreetLightBrightness);
+				$LowByte = $Value & 255;
+				$this->SetValueWhenChanged("ChargingState", $LowByte);
 				break;
 	      		
 	        default:
