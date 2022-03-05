@@ -42,7 +42,9 @@
 		$this->RegisterVariableString("ProductModel", "Modell", "", 40);
 		$this->RegisterVariableString("SoftwareVersion", "Software Version", "", 50);
 		$this->RegisterVariableString("HardwareVersion", "Hardware Version", "", 60);
-		
+		$this->RegisterVariableString("ProductionDate", "Herstellungsdatum", "", 70);
+		$this->RegisterVariableInteger("ProductSerialNumber", "Seriennummer", "", 80);
+		$this->RegisterVariableInteger("DeviceID", "ModBus-Geräte-ID", "", 90);
 		
 		
 		$this->RegisterVariableInteger("BatteryCapacity", "Batterie Kapazität", "~Intensity.100", 100);
@@ -157,7 +159,10 @@
 					20 => array("SoftwareVersion_1"),
 					21 => array("SoftwareVersion_2"),
 					22 => array("HardwareVersion_1"),
-					23 => array("HardwareVersion_2")
+					23 => array("HardwareVersion_2"),
+					24 => array("ProductionDate"),
+					25 => array("ProductSerialNumber"),
+					26 => array("DeviceID")
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -309,6 +314,18 @@
 				$HardwareVersion[2] = dechex($Value & 255);
 				$this->SetBuffer("HardwareVersion", serialize($HardwareVersion));
 				$this->SetValueWhenChanged("HardwareVersion", "V".implode(".", $HardwareVersion));
+				break;
+			case "24":
+				// Herstellungsdatum
+				$this->SetValueWhenChanged($Ident, $Value);
+				break;
+			case "25":
+				// Seriennummer
+				$this->SetValueWhenChanged($Ident, $Value);
+				break;
+			case "26":
+				// ModBus-Geräte-ID
+				$this->SetValueWhenChanged($Ident, $Value);
 				break;
 			case "256":
 				// Batterie Kapazität
