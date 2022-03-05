@@ -34,6 +34,14 @@
 		IPS_SetVariableProfileAssociation("RenogyWanderer.Current", 45, "45", "Information", -1);
 		IPS_SetVariableProfileAssociation("RenogyWanderer.Current", 60, "60", "Information", -1);
 		
+		$this->RegisterProfileInteger("RenogyWanderer.ChargingStatus", "Information", "", "", 0, 6, 0);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 0, "Ladung deaktiviert", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 1, "Ladung aktiviert", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 2, "MPPT Lade Modus", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 3, "Geregelter Lade Modus", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 4, "Boost Lade Modus", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 5, "Schwebender Lade Modus", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 6, "Limitierter Lade Modus", "Information", -1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
@@ -61,7 +69,7 @@
 		
 		$this->RegisterVariableBoolean("StreetLightStatus", "Ausgang Status", "~Switch", 300);
 		$this->RegisterVariableInteger("StreetLightBrightness", "Ausgang Helligkeit", "~Intensity.100", 310);
-		$this->RegisterVariableInteger("ChargingState", "Lade Status", "", 320);
+		$this->RegisterVariableInteger("ChargingState", "Lade Status", "RenogyWanderer.ChargingStatus", 320);
 		
 		
         }
