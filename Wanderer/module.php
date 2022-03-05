@@ -44,8 +44,8 @@
 		IPS_SetVariableProfileAssociation("RenogyWanderer.ChargingStatus", 6, "Limitierter Lade Modus", "Information", -1);
 		
 		$this->RegisterProfileInteger("RenogyWanderer.ProductType", "Information", "", "", 0, 1, 0);
-		IPS_SetVariableProfileAssociation("RenogyWanderer.ProductType", 1, "Controller", "Information", -1);
-		IPS_SetVariableProfileAssociation("RenogyWanderer.ProductType", 2, "Inverter", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ProductType", 0, "Controller", "Information", -1);
+		IPS_SetVariableProfileAssociation("RenogyWanderer.ProductType", 1, "Inverter", "Information", -1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 10);
