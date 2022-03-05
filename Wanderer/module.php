@@ -267,7 +267,7 @@
 			case "11":
 				// Sytem Entlade-Strom (high 8 Bit) und Produkt Typ (low 8 Bit)
 				$Current = $Value >> 8;
-				$this->SetValueWhenChanged("SystemDishargingCurrent", $Current * 1000);
+				$this->SetValueWhenChanged("SystemDischargingCurrent", $Current * 1000);
 				$ProductType = $Value & 255;
 				$this->SetValueWhenChanged("ProductType", $ProductType);
 				break;
