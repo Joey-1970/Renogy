@@ -71,6 +71,8 @@
 		$this->RegisterVariableInteger("StreetLightBrightness", "Ausgang Helligkeit", "~Intensity.100", 310);
 		$this->RegisterVariableInteger("ChargingState", "Lade Status", "RenogyWanderer.ChargingStatus", 320);
 		
+		$this->RegisterVariableInteger("ControllerFaultWarning", "Controller Fehler & Warnungen", "", 400);
+		
 		
         }
        	
@@ -216,7 +218,11 @@
 					263 => array("SolarPanelVoltage"), 
 					264 => array("SolarPanelCurrent"), 
 					265 => array("SolarPanelPower"), 
-					288 => array("StreetLightStatusChargingState") 
+					288 => array("StreetLightStatusChargingState"),
+					289 => array("ControllerFaultWarning_1"),
+					290 => array("ControllerFaultWarning_2"),
+				
+					
 					);
 			
 			$this->SetValue("LastUpdate", time() );
@@ -399,7 +405,17 @@
 				$LowByte = $Value & 255;
 				$this->SetValueWhenChanged("ChargingState", $LowByte);
 				break;
-	      		
+	      		case "289":
+				// Controller Fehler und Warnungen_1
+				$this->SetBuffer("ControllerFaultWarning", $Value);
+				break;
+			case "290":
+				// Controller Fehler und Warnungen_2
+				$ControllerFaultWarning_1 = intval($this->GetBuffer("ControllerFaultWarning"));
+				$ControllerFaultWarning_2 = $Value << 8;
+				$ControllerFaultWarning = $ControllerFaultWarning_1 & $ControllerFaultWarning_2;
+				$this->SetValueWhenChanged("ControllerFaultWarning", $ControllerFaultWarning);
+				break;
 	        default:
 	            throw new Exception("Invalid Ident");
 	    	}
