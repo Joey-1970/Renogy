@@ -317,7 +317,10 @@
 				break;
 			case "24":
 				// Herstellungsdatum
-				$this->SetValueWhenChanged($Ident, $Value);
+				$Value = dechex($Value);
+				$Year = intval(substr($Value, 0, 2)) + 2000;
+				$Month = substr($Value, 2, 2);
+				$this->SetValueWhenChanged($Ident, $Month."/".$Year);
 				break;
 			case "25":
 				// Seriennummer
